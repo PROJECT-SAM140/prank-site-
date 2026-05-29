@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>System Breach</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#ff0000;
+    font-family:monospace;
+    overflow:hidden;
+}
+
+/* FULL SCREEN TERMINAL STYLE */
+#terminal{
+    padding:20px;
+    font-size:18px;
+    white-space:pre-line;
+    animation: flicker 0.15s infinite;
+}
+
+/* GLITCH FLASH */
+@keyframes flicker{
+    0%{opacity:1;}
+    25%{opacity:0.7;}
+    50%{opacity:1;}
+    75%{opacity:0.4;}
+    100%{opacity:1;}
+}
+
+/* RED ALERT PULSE */
+.alert{
+    color:red;
+    font-size:40px;
+    text-align:center;
+    animation:pulse 0.5s infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+}
+
+#final{
+    display:none;
+    text-align:center;
+    font-size:60px;
+    color:white;
+    margin-top:20%;
+    animation:flash 0.3s infinite;
+}
+
+@keyframes flash{
+    0%{opacity:1;}
+    50%{opacity:0.2;}
+    100%{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="static" loop>
+<source src="https://www.soundjay.com/misc/sounds/static-1.mp3">
+</audio>
+
+<audio id="alarm">
+<source src="https://www.soundjay.com/misc/sounds/bomb-drop-01.mp3">
+</audio>
+
+<div id="terminal"></div>
+
+<div id="final">
+😂 SYSTEM OVERRIDDEN<br><br>
+PRANKED BY SAM
+</div>
+
+<script>
+
+// FULLSCREEN
+document.documentElement.requestFullscreen?.();
+
+// SOUND
+let staticSound = document.getElementById("static");
+let alarm = document.getElementById("alarm");
+
+staticSound.volume = 0.4;
+staticSound.play();
+
+// TYPE EFFECT FUNCTION
+let text = document.getElementById("terminal");
+
+function type(msg, speed, callback){
+    let i = 0;
+    let interval = setInterval(()=>{
+        text.innerHTML += msg[i];
+        i++;
+        if(i >= msg.length){
+            clearInterval(interval);
+            text.innerHTML += "\n";
+            if(callback) callback();
+        }
+    }, speed);
+}
+
+// SEQUENCE
+
+type("INITIALIZING SYSTEM...",50,()=>{
+type("ACCESSING DEVICE FILES...",40,()=>{
+type("CAMERA STATUS: ACTIVE",40,()=>{
+type("MICROPHONE: ENABLED",40,()=>{
+type("LOCATION: TRACKING...",40,()=>{
+type("BYPASSING SECURITY...",40,()=>{
+type("WARNING: SYSTEM COMPROMISED",40,()=>{
+    
+    document.body.style.background="darkred";
+
+    setTimeout(()=>{
+        alarm.play();
+        navigator.vibrate?.([300,200,300,200,300]);
+        text.classList.add("alert");
+        text.innerHTML="!!! CRITICAL SYSTEM FAILURE !!!";
+    },1000);
+
+    setTimeout(()=>{
+        document.getElementById("terminal").style.display="none";
+        document.getElementById("final").style.display="block";
+        staticSound.pause();
+    },5000);
+
+});
+});
+});
+});
+});
+});
+});
+
+</script>
+
+</body>
+</html>
